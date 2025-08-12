@@ -112,6 +112,158 @@ Content-Type: application/json
 }
 ```
 
+---
+
+# User Profile Endpoint Documentation
+
+## Endpoint
+
+`GET /users/profile`
+
+## Description
+
+Returns the profile information of the authenticated user. Requires a valid JWT token in the request (via cookie or Authorization header).
+
+## Authentication
+
+Send the JWT token in the `Authorization` header as `Bearer <token>` or as a cookie named `token`.
+
+## Responses
+
+### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "user": {
+      "_id": "64d5f8c2e4b0a2a1c8e4b0a2",
+      "fullname": {
+        "firstName": "Jane",
+        "lastName": "Smith"
+      },
+      "emailId": "jane.smith@example.com"
+      // ...other user fields
+    }
+  }
+  ```
+
+### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized !!"
+  }
+  ```
+
+### Not Found
+
+- **Status Code:** `404 Not Found`
+- **Body:**
+  ```json
+  {
+    "message": "User not found"
+  }
+  ```
+
+### Other Errors
+
+- **Status Code:** `500 Internal Server Error`
+- **Body:**
+  ```json
+  {
+    "error": "Error message"
+  }
+  ```
+
+## Example Request
+
+```http
+GET /users/profile
+Authorization: Bearer <JWT_TOKEN>
+```
+
+## Example Response
+
+```json
+{
+  "user": {
+    "_id": "64d5f8c2e4b0a2a1c8e4b0a2",
+    "fullname": {
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "emailId": "jane.smith@example.com"
+    // ...other user fields
+  }
+}
+```
+
+---
+
+# User Logout Endpoint Documentation
+
+## Endpoint
+
+`GET /users/logout`
+
+## Description
+
+Logs out the authenticated user by blacklisting the JWT token and clearing the authentication cookie. Requires a valid JWT token in the request.
+
+## Authentication
+
+Send the JWT token in the `Authorization` header as `Bearer <token>` or as a cookie named `token`.
+
+## Responses
+
+### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "message": "Logged out successfully"
+  }
+  ```
+
+### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized !!"
+  }
+  ```
+
+### Other Errors
+
+- **Status Code:** `500 Internal Server Error`
+- **Body:**
+  ```json
+  {
+    "error": "Error message"
+  }
+  ```
+
+## Example Request
+
+```http
+GET /users/logout
+Authorization: Bearer <JWT_TOKEN>
+```
+
+## Example Response
+
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
 ## Notes
 
 
