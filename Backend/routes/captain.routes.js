@@ -21,7 +21,7 @@ router.post('/register' , [
         .isLength({ min: 3 })
         .withMessage("Plate must be at least 3 characters long"),
     body("vehicle.capacity")
-        .isNumeric()
+        .isInt({min:1})
         .withMessage("Capacity must be a number and at least 1"),
     body("vehicle.vehicleType")
         .isIn(['car', 'motorcycle', 'auto'])

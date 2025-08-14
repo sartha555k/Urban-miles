@@ -1,5 +1,4 @@
-const captainModel = require("../models/captain.model");
-module.exports.createCaptain = async (
+module.exports.createCaptain = async ({
   firstName,
   lastName,
   emailId,
@@ -7,8 +6,8 @@ module.exports.createCaptain = async (
   color,
   plate,
   capacity,
-  vehicleType
-) => {
+  vehicleType,
+}) => {
   if (
     !firstName ||
     !lastName ||
@@ -22,21 +21,11 @@ module.exports.createCaptain = async (
     throw new Error("All fields are required");
   }
 
-  const hashedPassword = await captainModel.hashPassword(password);
-
   const captain = await captainModel.create({
-    fullname: {
-      firstName,
-      lastName,
-    },
+    fullname: { firstName, lastName },
     emailId,
-    password: hashedPassword,
-    vehicle: {
-      color,
-      plate,
-      capacity,
-      vehicleType,
-    },
+    password,
+    vehicle: { color, plate, capacity, vehicleType },
   });
 
   return captain;

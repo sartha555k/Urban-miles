@@ -1,3 +1,166 @@
+
+# Captain Registration Endpoint Documentation
+
+## Endpoint
+
+`POST /captains/register`
+
+## Description
+
+Registers a new captain in the system. Requires captain details including first name, last name, email address, password, and vehicle information. Returns a JWT token and captain information upon successful registration.
+
+## Request Body
+
+Send a JSON object with the following structure:
+
+```json
+{
+  "fullname": {
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "emailId": "john.doe@example.com",
+  "password": "yourpassword",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+### Field Requirements
+
+- `fullname.firstName`: String, required, minimum 2 characters
+- `fullname.lastName`: String, required, minimum 2 characters
+- `emailId`: String, required, must be a valid email address
+- `password`: String, required, minimum 3 characters
+- `vehicle.color`: String, required, minimum 3 characters
+- `vehicle.plate`: String, required, minimum 3 characters
+- `vehicle.capacity`: Integer, required, minimum 1
+- `vehicle.vehicleType`: String, required, one of `car`, `motorcycle`, `auto`
+
+## Responses
+
+### Success
+
+- **Status Code:** `201 Created`
+- **Body:**
+  ```json
+  {
+    "token": "<JWT_TOKEN>",
+    "captain": {
+      "_id": "<captain_id>",
+      "fullname": {
+        "firstName": "John",
+        "lastName": "Doe"
+      },
+      "emailId": "john.doe@example.com",
+      "vehicle": {
+        "color": "Red",
+        "plate": "ABC123",
+        "capacity": 4,
+        "vehicleType": "car"
+      }
+      // ...other captain fields
+    }
+  }
+  ```
+
+### Validation Error
+
+- **Status Code:** `400 Bad Request`
+- **Body:**
+  ```json
+  {
+    "errors": [
+      {
+        "msg": "Error message",
+        "param": "fieldName",
+        "location": "body"
+      }
+      // ...other errors
+    ]
+  }
+  ```
+
+### Duplicate Email
+
+- **Status Code:** `400 Bad Request`
+- **Body:**
+  ```json
+  {
+    "message": "Captain already exists with this email"
+  }
+  ```
+
+### Other Errors
+
+- **Status Code:** `500 Internal Server Error`
+- **Body:**
+  ```json
+  {
+    "error": "Error message"
+  }
+  ```
+
+## Example Request
+
+```http
+POST /captain/register
+Content-Type: application/json
+
+{
+  "fullname": {
+    "firstName": "Jane",
+    "lastName": "Smith"
+  },
+  "emailId": "jane.smith@example.com",
+  "password": "securepass",
+  "vehicle": {
+    "color": "Blue",
+    "plate": "XYZ789",
+    "capacity": 3,
+    "vehicleType": "auto"
+  }
+}
+```
+
+## Example Response
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "captain": {
+    "_id": "64d5f8c2e4b0a2a1c8e4b0a2",
+    "fullname": {
+      "firstName": "Jane",
+      "lastName": "Smith"
+    },
+    "emailId": "jane.smith@example.com",
+    "vehicle": {
+      "color": "Blue",
+      "plate": "XYZ789",
+      "capacity": 3,
+      "vehicleType": "auto"
+    }
+    // ...other captain fields
+  }
+}
+```
+
+---
+
+## Notes
+
+- All fields are required.
+- Passwords are securely hashed before storage.
+- Returns a JWT token for authentication.
+- Vehicle type must be one of: `car`, `motorcycle`, `auto`.
+
+---
+
 # User Registration Endpoint Documentation
 
 ## Endpoint
