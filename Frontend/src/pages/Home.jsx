@@ -10,7 +10,7 @@ const Home = () => {
           src="https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/c4d55f42-e52e-413f-a419-3f31908559c9.png"
           alt=""
         />
-        <div className="bg-white py-10 px-10">
+        <div className="bg-white py-10 px-10 my-4">
           <h2 className="text-3xl font-bold ">Get started with Urban-Miles</h2>
           <Link
             to="/login"
@@ -19,6 +19,9 @@ const Home = () => {
             Continue
           </Link>
         </div>
+        <div className="fixed bottom-0 left-0 w-full text-center">
+        <p className='font-bold'>❤️ from sarthak </p>
+      </div>
       </div>
     </div>
   );
