@@ -11,7 +11,7 @@ const UserContext = ({ children }) => {
     })
   return (
     <div>
-      <UserDataContext value={[user , setUser]}>{children}</UserDataContext>
+      <UserDataContext value={{user , setUser}}>{children}</UserDataContext>
     </div>
   );
 };
