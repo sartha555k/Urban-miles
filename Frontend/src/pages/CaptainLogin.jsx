@@ -42,7 +42,7 @@ const CaptainLogin = () => {
             submitHandler(e);
           }}
         >
-          <h3 className="text-xl mb-2 font-medium"> What's your Email ?</h3>
+          <h3 className="text-xl mb-2 font-medium"> What's your Captian's-Email ?</h3>
           <input
             type="email"
             placeholder="email@example.com"
