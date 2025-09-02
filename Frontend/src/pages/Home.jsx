@@ -3,12 +3,18 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
 import LocationSearchPanel from "../components/LocationSearchPanel";
+import VehiclePanel from "../components/VehiclePanel";
+import ConfirmRide from "../components/ConfirmRide";
 const Home = () => {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [panelopen, setPanelopen] = useState(false);
+  const vehiclePanelRef = useRef(null);
+  const confirmRidePanelRef = useRef(null);
   const panelRef = useRef(null);
-  const panelCloseRef = useRef(null)
+  const panelCloseRef = useRef(null);
+  const [vehiclePanel, setVehiclePanel] = useState(false);
+  const [confirmRide, setConfirmRide] = useState(false)
   const submitHandler = (e) => {
     e.preventDefault();
   };
@@ -19,23 +25,52 @@ const Home = () => {
         gsap.to(panelRef.current, {
           height: "70%",
         });
-        gsap.to(panelCloseRef.current , {
-          opacity:"1",
-        })
+        gsap.to(panelCloseRef.current, {
+          opacity: "1",
+        });
       } else {
         gsap.to(panelRef.current, {
           height: "0%",
         });
-        gsap.to(panelCloseRef.current , {
-          opacity : "0"
-        })
+        gsap.to(panelCloseRef.current, {
+          opacity: "0",
+        });
       }
     },
     [panelopen]
   );
+  useGSAP(
+    function () {
+      if (vehiclePanel) {
+        gsap.to(vehiclePanelRef.current, {
+          transform: "translateY(0)",
+        });
+      } else {
+        gsap.to(vehiclePanelRef.current, {
+          transform: "translateY(100%)",
+        });
+      }
+    },
+    [vehiclePanel]
+  );
+
+  useGSAP(
+    function () {
+      if (confirmRide) {
+        gsap.to(confirmRidePanelRef.current, {
+          transform: "translateY(0)",
+        });
+      } else {
+        gsap.to(confirmRidePanelRef.current, {
+          transform: "translateY(100%)",
+        });
+      }
+    },
+    [confirmRide]
+  );
 
   return (
-    <div className="h-screen relative">
+    <div className="h-screen relative overflow-hidden">
       <img
         className="w-20 absolute left-2 top-2"
         src="https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/c4d55f42-e52e-413f-a419-3f31908559c9.png"
@@ -90,9 +125,24 @@ const Home = () => {
             />
           </form>
         </div>
-        <div ref={panelRef} className="bg-white h-0">
-          <LocationSearchPanel/>
+        <div ref={panelRef} className="bg-red-400 h-0 p-3">
+          <LocationSearchPanel
+            setPanelopen={setPanelopen}
+            setVehiclePanel={setVehiclePanel}
+          />
         </div>
+      </div>
+      <div
+        ref={vehiclePanelRef}
+        className="fixed z-10 bottom-0 p-3 bg-white w-full px-3 py-6 translate-y-full"
+      >
+        <VehiclePanel setConfirmRide = {setConfirmRide} setVehiclePanel={setVehiclePanel}/>
+      </div>
+      <div
+        ref={confirmRidePanelRef}
+        className="fixed z-10 bottom-0 p-3 bg-white w-full px-3 py-6 translate-y-full"
+      >
+        <ConfirmRide setConfirmRide={setConfirmRide}/>
       </div>
     </div>
   );
