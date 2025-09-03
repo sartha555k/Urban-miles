@@ -1,17 +1,17 @@
 import React from "react";
 
-function ConfirmRide(props) {
+function LookingForDriver(props) {
   return (
     <div>
       <h3
         onClick={() => {
-          props.setConfirmRide(false);
+          props.setVehicleFound(false);
         }}
         className="pb-2 top-0 text-center absolute w-[93%]"
       >
         <i className=" text-gray-700 ri-arrow-down-wide-fill"></i>
       </h3>
-      <h3 className="text-2xl font-semibold mb-3">Confirm your ride !!</h3>
+      <h3 className="text-2xl font-semibold mb-3">Looking for driver</h3>
       <div className="flex justify-center flex-col items-center gap-2">
         <img
           className=" h-20"
@@ -44,17 +44,9 @@ function ConfirmRide(props) {
             </div>
           </div>
         </div>
-        <button
-          onClick={() => {
-            props.setVehicleFound(true), props.setConfirmRide(false);
-          }}
-          className="border-3 rounded-2xl w-full p-2 text-2xl font-bold "
-        >
-          Confirm
-        </button>
       </div>
     </div>
   );
 }
 
-export default ConfirmRide;
+export default LookingForDriver;
