@@ -1,7 +1,7 @@
 import React from "react";
 function VehiclePanel(props) {
   return (
-    <div>
+    <div className="">
       <h3
         onClick={() => {
           props.setVehiclePanel(false);

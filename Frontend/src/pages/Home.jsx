@@ -113,7 +113,7 @@ const Home = () => {
         src="https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/c4d55f42-e52e-413f-a419-3f31908559c9.png"
         alt=""
       />
-      <div className="h-screen w-screen">
+      <div className="h-screen w-screen ">
         <img
           className="h-full w-full object-cover"
           src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*gwMx05pqII5hbfmX.gif"
@@ -162,7 +162,7 @@ const Home = () => {
             />
           </form>
         </div>
-        <div ref={panelRef} className="bg-red-400 h-0 p-3">
+        <div ref={panelRef} className="bg-gray-400 h-0 pt-0.5 border-2 rounded-t-2xl">
           <LocationSearchPanel
             setPanelopen={setPanelopen}
             setVehiclePanel={setVehiclePanel}

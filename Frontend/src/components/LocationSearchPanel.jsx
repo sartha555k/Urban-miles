@@ -17,7 +17,7 @@ function LocationSearchPanel(props) {
               props.setVehiclePanel(true);
               props.setPanelopen(false);
             }}
-            className="flex items-center border-2 p-3 my-4 rounded-2xl justify-start "
+            className="flex items-center border-2 p-3  my-4 mx-2 rounded-2xl justify-start "
           >
             <h2 className="bg-gray-300 h-10 w-10 flex justify-center rounded-full p-2 mr-4">
               <i className="ri-map-pin-fill"></i>

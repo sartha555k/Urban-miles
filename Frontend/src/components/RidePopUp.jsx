@@ -1,34 +1,29 @@
-import React from 'react'
+import React from "react";
 
-function waitForDriver(props) {
+const RidePopUp = (props) => {
   return (
-     <div>
+    <div>
       <h3
         onClick={() => {
-          props.waitForDriver(false);
+          props.setRidePopupPanel(false);
         }}
         className="pb-2 top-0 text-center absolute w-[93%]"
       >
         <i className=" text-gray-700 ri-arrow-down-wide-fill"></i>
       </h3>
-      <div className='flex items-center justify-between'>
-        <img
-          className=" h-15"
-          src="https://www.pngplay.com/wp-content/uploads/8/Uber-PNG-Photos.png"
-        />
-        <div className='text-right'>
-          <h2 className='text-lg font-medium'>Sarthak</h2>
-          <h4 className='text-xl font-semibold -mt-1'>MP04 ap 1234</h4>
-          <p className='text-sm text-gray-600'>audi 123</p>
+      <h3 className="text-2xl font-semibold mb-3">New Ride Available</h3>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+            <img className="h-10 w-10 rounded-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRePTMSz5LtRX9Ox_VrqdbFlEIsmQgZQjhiAg&s" alt="" />
+        <h2 className="text-lg font-medium">Sarthak Patel</h2>
         </div>
+        <h5>2.2 Km</h5>
       </div>
-
 
       <div className="flex justify-center flex-col items-center gap-2">
         <div className="w-full">
           <div className="flex items-center gap-4 p-3 border-b-1">
-            <i className="ri-map-pin-user-fill"></i>
-           
+            <i className="text-lg ri-map-pin-fill"></i>
             <div>
               <h3 className="text-lg font-medium ">122/A</h3>
               <p className="text-base -mt-1">vijay nangar , Indore</p>
@@ -36,7 +31,7 @@ function waitForDriver(props) {
           </div>
           <div>
             <div className="flex items-center gap-4 p-3 border-b-1">
-              <i className="text-lg ri-map-pin-fill"></i>
+              <i className="ri-map-pin-2-line"></i>
               <div>
                 <h3 className="text-lg font-medium">122/A</h3>
                 <p className="text-base -mt-1">vijay nangar , Indore</p>
@@ -53,9 +48,19 @@ function waitForDriver(props) {
             </div>
           </div>
         </div>
+        <button  onClick={()=>{
+            props.setConfirmRidePopupPanel(true)
+        }}className="border-3 rounded-2xl w-full p-1 text-2xl font-bold bg-green-700">
+          Accept
+        </button>
+        <button onClick={()=>{
+            props.setRidePopupPanel(false)
+        }} className="border-3 rounded-2xl w-full p-1 mt-2 text-2xl font-bold bg-gray-700">
+          Ignore
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default waitForDriver
+export default RidePopUp;
