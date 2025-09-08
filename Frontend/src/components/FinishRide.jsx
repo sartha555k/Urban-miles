@@ -1,23 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const ConfirmRidePopUp = (props) => {
-  const [otp, setOtp] = useState("");
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
-
+const FinishRide = (props) => {
   return (
     <div>
       <h3
         onClick={() => {
-          props.setConfirmRidePopupPanel(false);
+          props.setFinishRidePanel(false);
         }}
         className="pb-2 top-0 text-center absolute w-[93%]"
       >
         <i className=" text-gray-700 ri-arrow-down-wide-fill"></i>
       </h3>
-      <h3 className="text-2xl font-semibold mb-7">Confirm Your Ride ?</h3>
+      <h3 className="text-2xl font-semibold mb-7">Finish this ride </h3>
       <div className="flex items-center justify-between mb-5 bg-gray-400 p-5 rounded-2xl hover:bg-gray-700">
         <div className="flex items-center gap-3">
           <img
@@ -59,40 +54,16 @@ const ConfirmRidePopUp = (props) => {
           </div>
         </div>
         <div className="w-full">
-          <form
-            onSubmit={(e) => {
-              submitHandler(e);
-            }}
+          <Link
+            to="/captain-home"
+            className="border-3 flex justify-center rounded-lg w-full p-1 text-2xl font-bold bg-green-700 "
           >
-            <input
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              className="px-5 py-2 text-base bg-gray-300 rounded-lg border w-full mb-3 mt-3"
-              type="text"
-              placeholder="Enter OTP"
-            />
-            <Link
-              to="/captain-riding"
-              onClick={() => {
-                props.setRidePopupPanel(false);
-              }}
-              className="border-3 flex justify-center rounded-lg w-full p-1 text-2xl font-bold bg-green-700"
-            >
-              Confirm
-            </Link>
-            <button
-              onClick={() => {
-                props.setConfirmRidePopupPanel(false);
-              }}
-              className="border-3 rounded-lg w-full p-1 mt-2 text-2xl font-bold bg-red-500"
-            >
-              Cancle
-            </button>
-          </form>
+            Finish Ride
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default ConfirmRidePopUp;
+export default FinishRide;
