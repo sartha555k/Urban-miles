@@ -19,7 +19,7 @@ router.get(
   mapController.getDistanceTime
 );
 
-router.get("/get-suggestions" , 
+router.get("/get-suggestions",
   query("input").isString().isLength({ min: 3 }),
   authMiddleWare.authUser,
   mapController.getAuthCompSuggestions

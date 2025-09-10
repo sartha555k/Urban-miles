@@ -37,7 +37,7 @@ module.exports.getDistanceTime = async (origin, destination) => {
     const response = await axios.get(url);
     if (response.data.status === "OK") {
 
-      if(response.data.rows[0].elements[0].status === 'Zero_RESULTS'){
+      if (response.data.rows[0].elements[0].status === 'Zero_RESULTS') {
         throw new Error('No routes found');
       }
 
@@ -51,20 +51,20 @@ module.exports.getDistanceTime = async (origin, destination) => {
   }
 };
 
-module.exports.getAuthCompSuggestions = async(input)=>{
-  if(!input){
+module.exports.getAuthCompSuggestions = async (input) => {
+  if (!input) {
     throw new Error('query is required');
   }
   const apiKey = process.env.GOOGLE_MAPS_API;
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(input)}&key=${apiKey}`;
-  try{
+  try {
     const response = await axios.get(url);
-    if(response.data.status == "OK"){
+    if (response.data.status == "OK") {
       return response.data.predictions;
-    }else{
+    } else {
       throw new Error('Unable to fetch suggestions')
     }
-  }catch(err){
+  } catch (err) {
     console.error(err);
     throw err;
   }
