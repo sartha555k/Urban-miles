@@ -1,5 +1,3 @@
-
-
 # Captain Endpoints Documentation
 
 ## Register Captain
@@ -567,3 +565,121 @@ Content-Type: application/json
   }
 }
 ```
+
+---
+
+# Maps Endpoints Documentation
+
+## Get Coordinates
+
+**Endpoint:** `GET /maps/get-coordinates`
+
+Returns latitude and longitude for a given address.
+
+- **Query Parameters:**
+  - `address`: String, required, min 3 chars
+
+**Authentication:** JWT token required (`Authorization: Bearer <token>` or cookie `token`).
+
+**Success Response:**
+```json
+{
+  "lat": 22.7196,
+  "lng": 75.8577
+}
+```
+
+**Validation Error:** 400 Bad Request  
+**Unauthorized:** 401 Unauthorized  
+**Not Found:** 404 Not Found
+
+---
+
+## Get Distance and Time
+
+**Endpoint:** `GET /maps/get-distance-time`
+
+Returns distance and estimated travel time between origin and destination.
+
+- **Query Parameters:**
+  - `origin`: String, required, min 3 chars
+  - `destination`: String, required, min 3 chars
+
+**Authentication:** JWT token required.
+
+**Success Response:**
+```json
+{
+  "distance": { "text": "2.2 km", "value": 2200 },
+  "duration": { "text": "8 mins", "value": 480 }
+}
+```
+
+**Validation Error:** 400 Bad Request  
+**Unauthorized:** 401 Unauthorized
+
+---
+
+## Get Location Suggestions
+
+**Endpoint:** `GET /maps/get-suggestions`
+
+Returns autocomplete suggestions for location input.
+
+- **Query Parameters:**
+  - `input`: String, required, min 3 chars
+
+**Authentication:** JWT token required.
+
+**Success Response:**
+```json
+[
+  { "description": "Vijay Nagar, Indore, India", ... },
+  ...
+]
+```
+
+**Validation Error:** 400 Bad Request  
+**Unauthorized:** 401 Unauthorized
+
+---
+
+# Ride Endpoints Documentation
+
+## Create Ride
+
+**Endpoint:** `POST /rides/create`
+
+Creates a new ride request.
+
+- **Request Body:**
+  - `pickup`: String, required, min 3 chars
+  - `destination`: String, required, min 3 chars
+  - `vehicleType`: String, required, one of `auto`, `car`, `moto`
+
+**Authentication:** JWT token required.
+
+**Success Response:**
+```json
+{
+  "_id": "<ride_id>",
+  "user": "<user_id>",
+  "pickup": "122/A",
+  "destination": "Vijay Nagar, Indore",
+  "fare": 99,
+  "status": "pending",
+  "otp": "1234"
+  // ...other ride fields
+}
+```
+
+**Validation Error:** 400 Bad Request  
+**Unauthorized:** 401 Unauthorized
+
+---
+
+## Notes
+
+- All endpoints require authentication unless stated otherwise.
+- Validation errors return an array of error messages.
+- JWT tokens can be sent via `Authorization` header or as a cookie named `token`.

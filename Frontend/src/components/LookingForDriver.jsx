@@ -21,16 +21,16 @@ function LookingForDriver(props) {
           <div className="flex items-center gap-4 p-3 border-b-1">
             <i className="text-lg ri-map-pin-fill"></i>
             <div>
-              <h3 className="text-lg font-medium ">122/A</h3>
-              <p className="text-base -mt-1">vijay nangar , Indore</p>
+              
+              <p className="text-base -mt-1">{props.pickup}</p>
             </div>
           </div>
           <div>
             <div className="flex items-center gap-4 p-3 border-b-1">
               <i className="ri-map-pin-2-line"></i>
               <div>
-                <h3 className="text-lg font-medium">122/A</h3>
-                <p className="text-base -mt-1">vijay nangar , Indore</p>
+              
+                <p className="text-base -mt-1">{props.destination}</p>
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@ function LookingForDriver(props) {
             <div className="flex items-center gap-4 p-3">
               <i className=" text-lg ri-money-rupee-circle-line"></i>
               <div>
-                <h3 className="text-lg font-medium">99rs.</h3>
+                <h3 className="text-lg font-medium">{props.fare[props.vehicleType]}</h3>
                 <p className="text-base -mt-1">cash/online</p>
               </div>
             </div>

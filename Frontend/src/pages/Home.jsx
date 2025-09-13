@@ -26,6 +26,8 @@ const Home = () => {
   const [pickupSuggestions, setPickupSuggestions] = useState([]);
   const [destinationSuggestions, setDestinationSuggestions] = useState([]);
   const [activeField, setActiveField] = useState(null);
+  const [fare, setFare] = useState({});
+  const [vehicleType, setVehicleType] = useState(null);
 
   const handlePickupChange = async (e) => {
     setPickup(e.target.value);
@@ -103,10 +105,12 @@ const Home = () => {
       if (confirmRide) {
         gsap.to(confirmRidePanelRef.current, {
           transform: "translateY(0)",
+          immediateRender: false,
         });
       } else {
         gsap.to(confirmRidePanelRef.current, {
           transform: "translateY(100%)",
+          immediateRender: false,
         });
       }
     },
@@ -143,11 +147,38 @@ const Home = () => {
     [waitForDriver]
   );
 
-  function findTrip(){
+  async function findTrip() {
     setVehiclePanel(true);
-    setPanelopen(false)
+    setPanelopen(false);
+    const response = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/rides/get-fare`,
+      {
+        params: { pickup, destination },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    console.log(response.data);
+    setFare(response.data);
   }
 
+  async function createRide() {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/rides/create`,
+      {
+        pickup,
+        destination,
+        vehicleType,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    console.log(response.data);
+  }
 
   return (
     <div className="h-screen relative overflow-hidden">
@@ -178,7 +209,6 @@ const Home = () => {
             onClick={(e) => {
               submitHandler(e);
             }}
-           
           >
             <input
               className="px-5 py-2 text-base bg-gray-300 rounded-lg border w-full mb-3 mt-3"
@@ -204,8 +234,9 @@ const Home = () => {
             />
           </form>
           <button
-          onClick={findTrip} 
-          className="bg-black text-white mt-2 px-2 font-bold rounded-lg">
+            onClick={findTrip}
+            className="bg-black text-white mt-2 px-2 font-bold rounded-lg"
+          >
             Find trip
           </button>
         </div>
@@ -232,6 +263,9 @@ const Home = () => {
         className="fixed z-10 bottom-0 p-3 bg-white w-full px-3 py-6 translate-y-full"
       >
         <VehiclePanel
+          selectVehicle={setVehicleType}
+          fare={fare}
+          createRide={createRide}
           setConfirmRide={setConfirmRide}
           setVehiclePanel={setVehiclePanel}
         />
@@ -241,6 +275,11 @@ const Home = () => {
         className="fixed z-10 bottom-0 p-3 bg-white w-full px-3 py-6 translate-y-full"
       >
         <ConfirmRide
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+          vehicleType={vehicleType}
+          createRide={createRide}
           setConfirmRide={setConfirmRide}
           setVehicleFound={setVehicleFound}
         />
@@ -255,11 +294,13 @@ const Home = () => {
               ? pickupSuggestions
               : destinationSuggestions
           }
-          setPanelOpen={setPanelopen}
-          setVehiclePanel={setVehiclePanel}
-          setPickup={setPickup}
-          setDestination={setDestination}
-          activeField={activeField}
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+          vehicleType={vehicleType}
+          createRide={createRide}
+          setConfirmRide={setConfirmRide}
+          setVehicleFound={setVehicleFound}
         />
       </div>
       <div

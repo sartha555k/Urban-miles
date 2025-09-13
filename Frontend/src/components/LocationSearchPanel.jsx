@@ -10,9 +10,9 @@ const LocationSearchPanel = ({
 }) => {
   const handleSuggestionClick = (suggestion) => {
     if (activeField === "pickup") {
-      setPickup(suggestion);
+      setPickup(suggestion.description);
     } else if (activeField === "destination") {
-      setDestination(suggestion);
+      setDestination(suggestion.description);
     }
   };
 

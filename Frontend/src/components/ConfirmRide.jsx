@@ -6,6 +6,7 @@ function ConfirmRide(props) {
       <h3
         onClick={() => {
           props.setConfirmRide(false);
+          console.log("click")
         }}
         className="pb-2 top-0 text-center absolute w-[93%]"
       >
@@ -21,16 +22,16 @@ function ConfirmRide(props) {
           <div className="flex items-center gap-4 p-3 border-b-1">
             <i className="text-lg ri-map-pin-fill"></i>
             <div>
-              <h3 className="text-lg font-medium ">122/A</h3>
-              <p className="text-base -mt-1">vijay nangar , Indore</p>
+             
+              <p className="text-base -mt-1">{props.pickup}</p>
             </div>
           </div>
           <div>
             <div className="flex items-center gap-4 p-3 border-b-1">
               <i className="ri-map-pin-2-line"></i>
               <div>
-                <h3 className="text-lg font-medium">122/A</h3>
-                <p className="text-base -mt-1">vijay nangar , Indore</p>
+          
+                <p className="text-base -mt-1">{props.destination}</p>
               </div>
             </div>
           </div>
@@ -38,7 +39,7 @@ function ConfirmRide(props) {
             <div className="flex items-center gap-4 p-3">
               <i className=" text-lg ri-money-rupee-circle-line"></i>
               <div>
-                <h3 className="text-lg font-medium">99rs.</h3>
+                <h3 className="text-lg font-medium">{props.fare[props.vehicleType]}</h3>
                 <p className="text-base -mt-1">cash/online</p>
               </div>
             </div>
@@ -46,6 +47,7 @@ function ConfirmRide(props) {
         </div>
         <button
           onClick={() => {
+            props.createRide(),
             props.setVehicleFound(true), props.setConfirmRide(false);
           }}
           className="border-3 rounded-2xl w-full p-2 text-2xl font-bold "
